@@ -3,14 +3,18 @@ import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 
-import { useAuthContext } from "../contexts/AuthContext";
-import { displayToast } from "../utils/toast";
-import { AuthError, parseFirebaseErrorMessage, storage } from "../lib/firebase";
+import { useAuthContext } from "../../contexts/AuthContext";
+import { displayToast } from "../../utils/toast";
+import {
+	AuthError,
+	parseFirebaseErrorMessage,
+	storage,
+} from "../../lib/firebase";
 
-import Button from "../components/Button";
-import Input from "../components/Input";
-import Divider from "../components/Divider";
-import UploadAvatar from "../components/UploadAvatar";
+import Button from "../../components/Button";
+import Input from "../../components/Input";
+import Divider from "../../components/Divider";
+import UploadAvatar from "../../components/UploadAvatar";
 
 // interface IAvatar {
 // 	url: string | null | undefined;

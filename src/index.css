@@ -2,15 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+	--navbar-height: 90px;
+	--sidebar-width: 250px;
+}
+
 *,
 *::after,
 *::before {
-  box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+#root,
+body {
+	min-height: 100vh;
+	min-width: 100%;
 }
 
 body {
-  min-height: 100vh;
-  min-width: 100%;
-  margin: 0;
-  padding: 0;
+	margin: 0;
+	padding: 0;
 }

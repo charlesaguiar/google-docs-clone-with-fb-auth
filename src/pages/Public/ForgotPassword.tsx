@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { MdArrowBack } from "react-icons/md";
 
-import { useAuthContext } from "../contexts/AuthContext";
-import { displayToast } from "../utils/toast";
-import { AuthError, parseFirebaseErrorMessage } from "../lib/firebase";
+import { useAuthContext } from "../../contexts/AuthContext";
+import { displayToast } from "../../utils/toast";
+import { AuthError, parseFirebaseErrorMessage } from "../../lib/firebase";
 
 const ForgotPassword: React.FC = () => {
 	const { resetPassword } = useAuthContext();
@@ -65,7 +65,7 @@ const ForgotPassword: React.FC = () => {
 
 			<div className="flex gap-3 items-center text-sm">
 				<MdArrowBack />
-				<Link to="/login" className="underline text-blue-500">
+				<Link to="/pb/login" className="underline text-blue-500">
 					Back to login page
 				</Link>{" "}
 			</div>

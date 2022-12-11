@@ -1,11 +1,11 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { useAuthContext } from "../contexts/AuthContext";
-import { AuthError, parseFirebaseErrorMessage } from "../lib/firebase";
-import { displayToast } from "../utils/toast";
+import { useAuthContext } from "../../contexts/AuthContext";
+import { AuthError, parseFirebaseErrorMessage } from "../../lib/firebase";
+import { displayToast } from "../../utils/toast";
 
-import Divider from "../components/Divider";
+import Divider from "../../components/Divider";
 
 const Signup: React.FC = () => {
 	const { signup } = useAuthContext();
@@ -89,7 +89,7 @@ const Signup: React.FC = () => {
 
 			<span className="text-sm">
 				Already have an account? Click{" "}
-				<Link to="/login" className="underline text-blue-500">
+				<Link to="/pb/login" className="underline text-blue-500">
 					here
 				</Link>{" "}
 				to login.
