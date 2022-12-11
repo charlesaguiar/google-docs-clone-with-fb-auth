@@ -1,4 +1,4 @@
-import { MdAccountCircle, MdLogout } from "react-icons/md";
+import { MdAccountCircle, MdLogout, MdMenu } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 
 import { useAuthContext } from "../contexts/AuthContext";
@@ -12,10 +12,13 @@ export default function Navbar() {
 	return (
 		<header className="inline-block sticky top-0 z-50 w-full bg-gray-50">
 			<nav className="flex items-center justify-between shadow-lg h-nav">
+				<div className="block mx-4 md:mx-6 lg:mx-8 md:hidden cursor-pointer hover:text-gray-500">
+					<MdMenu size={28} />
+				</div>
 				<Link className="mx-4 md:mx-6 lg:mx-8" to="/">
 					<div className="flex gap-4 items-center">
 						<img src={Logo} />
-						<strong>GoogleDocsClone</strong>
+						<strong className="hidden xs:block">GoogleDocsClone</strong>
 					</div>
 				</Link>
 
