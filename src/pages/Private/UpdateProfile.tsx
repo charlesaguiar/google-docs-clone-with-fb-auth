@@ -92,7 +92,7 @@ const UpdateProfile: React.FC = () => {
 	};
 
 	return (
-		<div className="flex flex-col w-[300px] p-4 md:w-[500px] mx-auto">
+		<div className="flex flex-col max-w-[300px] p-4 md:max-w-[500px] mx-auto">
 			<h1 className="text-4xl font-bold self-center mb-10">Update Profile</h1>
 
 			<form className="flex flex-col gap-4" onSubmit={onSubmit}>
