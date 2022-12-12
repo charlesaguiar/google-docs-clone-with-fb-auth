@@ -6,6 +6,9 @@ module.exports = {
 			screens: {
 				xs: "420px",
 			},
+			colors: {
+				backdrop: "var(--backdrop-color)",
+			},
 			height: {
 				nav: "var(--navbar-height)",
 			},

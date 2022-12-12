@@ -10,7 +10,7 @@ export default function Navbar() {
 	const { logout } = useAuthContext();
 
 	return (
-		<header className="inline-block sticky top-0 z-50 w-full bg-gray-50">
+		<header className="inline-block sticky top-0 z-50 w-full bg-gray-50 print:hidden">
 			<nav className="flex items-center justify-between shadow-lg h-nav">
 				<div className="block mx-4 md:mx-6 lg:mx-8 md:hidden cursor-pointer hover:text-gray-500">
 					<MdMenu size={28} />

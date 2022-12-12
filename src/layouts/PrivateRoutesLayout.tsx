@@ -9,7 +9,7 @@ export default function PrivateRoutesLayout() {
 			<Navbar />
 			<div className="flex">
 				<Sidebar />
-				<main className="ml-0 md:ml-[theme(width.sidebar)] px-8 py-4 grow">
+				<main className="ml-0 md:ml-[theme(width.sidebar)] px-8 py-6 grow">
 					<Outlet />
 				</main>
 			</div>

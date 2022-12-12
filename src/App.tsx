@@ -10,12 +10,13 @@ import ForgotPassword from "./pages/Public/ForgotPassword";
 
 import Dashboard from "./pages/Private/Dashboard";
 import UpdateProfile from "./pages/Private/UpdateProfile";
-
-import PublicRoutesLayout from "./layouts/PublicRoutesLayout";
-import PrivateRoutesLayout from "./layouts/PrivateRoutesLayout";
 import MyDocuments from "./pages/Private/MyDocuments";
 import SharedWithMe from "./pages/Private/SharedWithMe";
 import Peers from "./pages/Private/Peers";
+import DocumentEditor from "./pages/Private/DocumentEditor";
+
+import PublicRoutesLayout from "./layouts/PublicRoutesLayout";
+import PrivateRoutesLayout from "./layouts/PrivateRoutesLayout";
 
 function App() {
 	const { isAuthenticated, loading } = useAuthContext();
@@ -38,9 +39,10 @@ function App() {
 							<Route path="my-documents" element={<MyDocuments />} />
 							<Route path="shared-with-me" element={<SharedWithMe />} />
 							<Route path="peers" element={<Peers />} />
+							<Route path="document-editor/:id" element={<DocumentEditor />} />
 							<Route path="update-profile" element={<UpdateProfile />} />
 						</Route>
-						<Route path="*" element={<Navigate to="home" />} />
+						<Route path="*" element={<Navigate to="" />} />
 					</>
 				) : (
 					<>
