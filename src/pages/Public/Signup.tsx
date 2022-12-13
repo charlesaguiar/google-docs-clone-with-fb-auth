@@ -6,6 +6,7 @@ import { AuthError, parseFirebaseErrorMessage } from "../../lib/firebase";
 import { displayToast } from "../../utils/toast";
 
 import Divider from "../../components/Divider";
+import Button from "../../components/Button";
 
 const Signup: React.FC = () => {
 	const { signup } = useAuthContext();
@@ -76,13 +77,9 @@ const Signup: React.FC = () => {
 					/>
 				</div>
 
-				<button
-					className="p-4 bg-blue-500 text-white font-bold text-2xl rounded-xl cursor-pointer hover:bg-blue-800 disabled:bg-gray-200"
-					type="submit"
-					disabled={loading}
-				>
-					{loading ? "Loading..." : "Signup"}
-				</button>
+				<Button type="submit" disabled={loading} isLoading={loading}>
+					Signup
+				</Button>
 			</form>
 
 			<Divider />

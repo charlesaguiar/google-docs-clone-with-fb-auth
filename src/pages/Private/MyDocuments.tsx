@@ -50,7 +50,7 @@ export default function MyDocuments() {
 				toggleVisible={toggleCreateDocumentModal}
 				title="Create new Document"
 			>
-				<CreateDocumentForm />
+				<CreateDocumentForm onCancel={toggleCreateDocumentModal} />
 			</Modal>
 		</div>
 	);

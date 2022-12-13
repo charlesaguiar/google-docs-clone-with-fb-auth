@@ -1,4 +1,4 @@
-import { FaUser } from "react-icons/fa";
+import Avatar from "./Avatar";
 import Input from "./Input";
 
 interface IUploadAvatarProps {
@@ -34,14 +34,7 @@ export default function UploadAvatar({
 				className="absolute top-[50%] left-[50%] w-full h-full cursor-pointer -translate-x-[50%] -translate-y-[50%]"
 				htmlFor="avatar-input"
 			>
-				{avatarUrl ? (
-					<img
-						className="w-full h-full rounded-full object-cover object-center"
-						src={avatarUrl}
-					/>
-				) : (
-					<FaUser className="w-full h-full rounded-full" size={28} />
-				)}
+				<Avatar avatarUrl={avatarUrl} />
 			</label>
 			<Input
 				id="avatar-input"

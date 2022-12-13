@@ -4,10 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../contexts/AuthContext";
 
 import Logo from "../assets/react.svg";
+import Avatar from "./Avatar";
 
 export default function Navbar() {
 	const navigate = useNavigate();
-	const { logout } = useAuthContext();
+	const { user, logout } = useAuthContext();
 
 	return (
 		<header className="inline-block sticky top-0 z-50 w-full bg-gray-50 print:hidden">
@@ -22,14 +23,7 @@ export default function Navbar() {
 					</div>
 				</Link>
 
-				<div className="flex gap-3 mx-4 md:mx-6 lg:mx-8">
-					<button
-						className="flex items-center justify-center gap-4 border border-gray-300 p-2 rounded-full md:rounded-lg hover:border-blue-500 hover:bg-blue-50"
-						onClick={() => navigate("/update-profile")}
-					>
-						<MdAccountCircle size={20} />
-						<span className="hidden md:block">Update my profile</span>
-					</button>
+				<div className="flex gap-3 items-center mx-4 md:mx-6 lg:mx-8">
 					<button
 						className="flex items-center justify-center gap-4 border border-gray-300 p-2 rounded-full md:rounded-lg hover:border-blue-500 hover:bg-blue-50"
 						onClick={logout}
@@ -37,6 +31,12 @@ export default function Navbar() {
 						<MdLogout size={20} />
 						<span className="hidden md:block">Logout</span>
 					</button>
+					<div
+						className="w-14 h-14 cursor-pointer"
+						onClick={() => navigate("/update-profile")}
+					>
+						<Avatar avatarUrl={user?.photoUrl} placeholderSize={12} />
+					</div>
 				</div>
 			</nav>
 		</header>

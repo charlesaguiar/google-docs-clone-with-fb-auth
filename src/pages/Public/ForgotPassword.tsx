@@ -1,11 +1,12 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ClipLoader } from "react-spinners";
 import { MdArrowBack } from "react-icons/md";
 
 import { useAuthContext } from "../../contexts/AuthContext";
 import { displayToast } from "../../utils/toast";
 import { AuthError, parseFirebaseErrorMessage } from "../../lib/firebase";
+
+import Button from "../../components/Button";
 
 const ForgotPassword: React.FC = () => {
 	const { resetPassword } = useAuthContext();
@@ -52,13 +53,9 @@ const ForgotPassword: React.FC = () => {
 					/>
 				</div>
 
-				<button
-					className="flex justify-center p-3 bg-blue-500 text-white font-bold text-2xl rounded-xl cursor-pointer hover:bg-blue-800 disabled:bg-gray-200"
-					type="submit"
-					disabled={loading}
-				>
-					{loading ? <ClipLoader size={25} color="#FFF" /> : "Reset password"}
-				</button>
+				<Button type="submit" disabled={loading} isLoading={loading}>
+					Reset password
+				</Button>
 			</form>
 
 			<div className="w-100 h-[1px] bg-gray-300 my-4" />
