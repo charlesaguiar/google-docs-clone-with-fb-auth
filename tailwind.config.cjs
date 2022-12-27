@@ -8,6 +8,7 @@ module.exports = {
 			},
 			colors: {
 				backdrop: "var(--backdrop-color)",
+				mainbg: "var(--main-bg-color)",
 			},
 			height: {
 				nav: "var(--navbar-height)",

@@ -24,9 +24,10 @@ export default function Button({
 	return (
 		<button
 			{...rest}
+			disabled={rest.disabled || isLoading}
 			className={`flex items-center justify-center px-3 py-[6px] font-bold text-lg rounded-lg cursor-pointer ${VARIANT_CLASSES[variant]} ${className}`}
 		>
-			{isLoading ? <Loading size={25} /> : children}
+			{isLoading ? <Loading inline={false} size={25} /> : children}
 		</button>
 	);
 }

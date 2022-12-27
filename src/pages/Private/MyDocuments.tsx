@@ -35,7 +35,7 @@ export default function MyDocuments() {
 				actions={[
 					{
 						variant: "primary",
-						label: "Create New",
+						label: "New",
 						handler: toggleCreateDocumentModal,
 					},
 				]}
@@ -48,7 +48,7 @@ export default function MyDocuments() {
 			<Modal
 				visible={createDocumentModalVisible}
 				toggleVisible={toggleCreateDocumentModal}
-				title="Create new Document"
+				title="New Document"
 			>
 				<CreateDocumentForm onCancel={toggleCreateDocumentModal} />
 			</Modal>

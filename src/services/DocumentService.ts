@@ -9,6 +9,11 @@ export interface IDocument {
 	createdAt: string;
 }
 
+export interface IEditDocumentInput {
+	uid: string;
+	name: string;
+}
+
 export const getDocuments = (ownerId: string) =>
 	api
 		.get<{ documents: IDocument[] }>("documents", { params: { ownerId } })
@@ -29,3 +34,16 @@ export const createDocument = (name: string, ownerId: string) =>
 			message: r.data.message,
 			document: r.data.data.document,
 		}));
+
+export const editDocument = (uid: string, name: string) =>
+	api
+		.patch<{ message: string }>("document", {
+			uid,
+			name,
+		})
+		.then((r) => r.data.message);
+
+export const deleteDocument = (uid: string) =>
+	api
+		.delete<{ message: string }>(`document/${uid}`)
+		.then((r) => r.data.message);

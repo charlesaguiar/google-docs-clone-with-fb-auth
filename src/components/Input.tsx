@@ -11,7 +11,7 @@ const Input = forwardRef<HTMLInputElement, IInputProps>(
 		return (
 			<div className="flex flex-col">
 				{label ? (
-					<label className="text-sm text-inherit" htmlFor={id}>
+					<label className="text-sm text-inherit mb-2" htmlFor={id}>
 						{label}
 					</label>
 				) : null}

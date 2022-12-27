@@ -1,21 +1,26 @@
-import { useQuery } from "react-query";
+import { useRef } from "react";
 import { useParams } from "react-router-dom";
-import { MdDelete, MdOutlineEdit, MdShare, MdFilterNone } from "react-icons/md";
+import { MdDelete, MdShare, MdFilterNone } from "react-icons/md";
 
-import { getDocument } from "../../services/DocumentService";
+import useDocument from "../../hooks/rq/useDocument";
+import useDeactivateDocument from "../../hooks/rq/useDeactivateDocument";
+import useToggle from "../../hooks/useToggle";
 
 import TextEditor from "../../components/TextEditor";
 import Loading from "../../components/Loading";
 import PageHeader from "../../components/PageHeader";
+import DocumentTitle from "../../components/DocumentTitle";
+import Modal from "../../components/Modal";
+import ConfirmationDialog from "../../components/ConfirmationDialog";
 
 export default function DocumentEditor() {
-	const { id: documentId } = useParams();
+	const confirmationMessageRef = useRef("");
 
-	const { isLoading, data: document } = useQuery(
-		"documentMeta",
-		() => getDocument(documentId || ""),
-		{ refetchOnWindowFocus: false }
-	);
+	const { id: documentId } = useParams();
+	const { document, isLoading } = useDocument(documentId || "");
+	const { deactivate, isDeactivating } = useDeactivateDocument();
+
+	const [displayConfirmationModal, toggleConfirmationModal] = useToggle();
 
 	if (isLoading || !document) {
 		return <Loading />;
@@ -24,37 +29,46 @@ export default function DocumentEditor() {
 	return (
 		<div>
 			<PageHeader
-				title={
-					<div className="flex gap-4 items-center">
-						<span>{document.name}</span>
-						<MdOutlineEdit
-							size={28}
-							className="text-gray-300 cursor-pointer hover:text-gray-900"
-						/>
-					</div>
-				}
+				title={<DocumentTitle document={document} />}
 				actions={[
 					{
 						variant: "secondary",
 						label: "Share",
 						Icon: <MdShare size={24} />,
-						handler: () => {},
+						handler: toggleConfirmationModal,
 					},
 					{
 						variant: "secondary",
 						label: "Delete",
 						Icon: <MdDelete size={24} />,
-						handler: () => {},
+						handler: () => {
+							confirmationMessageRef.current =
+								"Do you really want to delete this document?";
+							toggleConfirmationModal();
+						},
 					},
 					{
 						variant: "primary",
 						label: "Clone",
 						Icon: <MdFilterNone size={24} />,
-						handler: () => {},
+						handler: toggleConfirmationModal,
 					},
 				]}
 			/>
 			<TextEditor />
+			<Modal
+				visible={displayConfirmationModal}
+				toggleVisible={toggleConfirmationModal}
+				title="Confirmation"
+			>
+				<ConfirmationDialog
+					onCancel={toggleConfirmationModal}
+					onConfirm={() => deactivate({ documentId: document.uid })}
+					isLoading={isDeactivating}
+				>
+					<span>{confirmationMessageRef.current}</span>
+				</ConfirmationDialog>
+			</Modal>
 		</div>
 	);
 }

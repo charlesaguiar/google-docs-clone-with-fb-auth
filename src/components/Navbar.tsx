@@ -1,19 +1,23 @@
-import { MdAccountCircle, MdLogout, MdMenu } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
+import { MdLogout, MdMenu } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 import { useAuthContext } from "../contexts/AuthContext";
+import { useUiContext } from "../contexts/UiContext";
 
 import Logo from "../assets/react.svg";
 import Avatar from "./Avatar";
 
 export default function Navbar() {
-	const navigate = useNavigate();
 	const { user, logout } = useAuthContext();
+	const { toggleSideBar } = useUiContext();
 
 	return (
 		<header className="inline-block sticky top-0 z-50 w-full bg-gray-50 print:hidden">
 			<nav className="flex items-center justify-between shadow-lg h-nav">
-				<div className="block mx-4 md:mx-6 lg:mx-8 md:hidden cursor-pointer hover:text-gray-500">
+				<div
+					onClick={toggleSideBar}
+					className="block mx-4 md:mx-6 lg:mx-8 md:hidden cursor-pointer hover:text-gray-500"
+				>
 					<MdMenu size={28} />
 				</div>
 				<Link className="mx-4 md:mx-6 lg:mx-8" to="/">
@@ -31,12 +35,11 @@ export default function Navbar() {
 						<MdLogout size={20} />
 						<span className="hidden md:block">Logout</span>
 					</button>
-					<div
-						className="w-14 h-14 cursor-pointer"
-						onClick={() => navigate("/update-profile")}
-					>
-						<Avatar avatarUrl={user?.photoUrl} placeholderSize={12} />
-					</div>
+					<Link to="/update-profile">
+						<div className="w-14 h-14 cursor-pointer">
+							<Avatar avatarUrl={user?.photoUrl} placeholderSize={12} />
+						</div>
+					</Link>
 				</div>
 			</nav>
 		</header>

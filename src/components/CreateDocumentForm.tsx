@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 
 import { useAuthContext } from "../contexts/AuthContext";
-import { createDocument } from "../services/DocumentService";
-import { displayToast } from "../utils/toast";
+import useCreateDocument from "../hooks/rq/useCreateDocument";
 
 import Button from "./Button";
 import Divider from "./Divider";
@@ -19,12 +17,7 @@ export default function CreateDocumentForm({
 }: ICreateDocumentFormProps) {
 	const navigate = useNavigate();
 	const { user } = useAuthContext();
-
-	const { mutate, isLoading, data } = useMutation({
-		mutationFn: ({ name, ownerId }: { name: string; ownerId: string }) => {
-			return createDocument(name, ownerId);
-		},
-	});
+	const { create, createdDocument, isCreating } = useCreateDocument();
 
 	const [errorMessage, setErrorMessage] = useState<string | undefined>();
 	const documentNameRef = useRef<HTMLInputElement>(null);
@@ -39,21 +32,20 @@ export default function CreateDocumentForm({
 			return;
 		}
 
-		mutate({ name: documentNameRef.current?.value, ownerId: user?.uid });
-		displayToast("Document created successfully!", { type: "success" });
+		create({ name: documentNameRef.current?.value, ownerId: user?.uid });
 	};
 
 	useEffect(() => {
-		if (!data?.document?.uid) return;
+		if (!createdDocument?.uid) return;
 		const timeout = setTimeout(() => {
 			onCancel();
-			navigate(`/document-editor/${data.document.uid}`);
+			navigate(`/document-editor/${createdDocument.uid}`);
 		}, 500);
 
 		return () => {
 			clearTimeout(timeout);
 		};
-	}, [onCancel, data?.document?.uid]);
+	}, [onCancel, createdDocument?.uid]);
 
 	return (
 		<form className="flex flex-col" onSubmit={onSubmit}>
@@ -66,14 +58,14 @@ export default function CreateDocumentForm({
 			/>
 			<Divider />
 			<div className="flex gap-4 self-end">
-				<Button variant="secondary" onClick={onCancel} disabled={isLoading}>
+				<Button variant="secondary" onClick={onCancel} disabled={isCreating}>
 					Cancel
 				</Button>
 				<Button
 					type="submit"
 					variant="primary"
-					isLoading={isLoading}
-					disabled={isLoading}
+					isLoading={isCreating}
+					disabled={isCreating}
 				>
 					Create
 				</Button>

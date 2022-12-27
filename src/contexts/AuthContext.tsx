@@ -20,7 +20,7 @@ type FirebaseAuthAction = (
 	password: string
 ) => Promise<UserCredential>;
 
-interface IAuthContextProps {
+interface IAuthContext {
 	user: IUser | null;
 	loading: boolean;
 	isAuthenticated: boolean;
@@ -36,7 +36,7 @@ interface IAuthContextProps {
 	updatePassword: (newPassword: string) => Promise<void>;
 }
 
-const AuthContext = createContext({} as IAuthContextProps);
+const AuthContext = createContext({} as IAuthContext);
 
 export const useAuthContext = () => {
 	return useContext(AuthContext);

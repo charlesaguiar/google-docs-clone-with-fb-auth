@@ -9,6 +9,7 @@ import AuthProvider from "./contexts/AuthContext";
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
 import "quill/dist/quill.snow.css";
+import UiProvider from "./contexts/UiContext";
 
 const queryClient = new QueryClient();
 
@@ -17,7 +18,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 		<Router>
 			<AuthProvider>
 				<QueryClientProvider client={queryClient}>
-					<App />
+					<UiProvider>
+						<App />
+					</UiProvider>
 				</QueryClientProvider>
 			</AuthProvider>
 		</Router>
