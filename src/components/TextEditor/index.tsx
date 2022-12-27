@@ -1,4 +1,4 @@
-import useQuillSocketComm from "../../hooks/useQuillSocketComm";
+import useQuillSocketComm from "hooks/useQuillSocketComm";
 import "./TextEditor.css";
 
 export default function TextEditor() {

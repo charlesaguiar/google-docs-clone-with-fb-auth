@@ -1,5 +1,5 @@
-import PageHeader from "../../components/PageHeader";
-import { useAuthContext } from "../../contexts/AuthContext";
+import PageHeader from "components/PageHeader";
+import { useAuthContext } from "contexts/AuthContext";
 
 export default function Dashboard() {
 	const { user } = useAuthContext();

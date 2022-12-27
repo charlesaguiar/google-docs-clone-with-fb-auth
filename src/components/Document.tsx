@@ -2,7 +2,7 @@ import { format } from "date-fns";
 import { SiGoogledrive } from "react-icons/si";
 import { Link } from "react-router-dom";
 
-import { IDocument } from "../services/DocumentService";
+import { IDocument } from "services/DocumentService";
 
 export default function Document({ document }: { document: IDocument }) {
 	return (

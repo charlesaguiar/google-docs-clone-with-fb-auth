@@ -2,13 +2,13 @@ import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 
-import { useAuthContext } from "../../contexts/AuthContext";
-import { displayToast } from "../../utils/toast";
-import { AuthError, parseFirebaseErrorMessage } from "../../lib/firebase";
+import { useAuthContext } from "contexts/AuthContext";
+import { displayToast } from "utils/toast";
+import { AuthError, parseFirebaseErrorMessage } from "lib/firebase";
 
-import Button from "../../components/Button";
-import Input from "../../components/Input";
-import Divider from "../../components/Divider";
+import Button from "components/Button";
+import Input from "components/Input";
+import Divider from "components/Divider";
 
 const Login: React.FC = () => {
 	const { login } = useAuthContext();

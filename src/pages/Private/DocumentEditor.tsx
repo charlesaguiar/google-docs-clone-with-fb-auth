@@ -2,16 +2,16 @@ import { useRef } from "react";
 import { useParams } from "react-router-dom";
 import { MdDelete, MdShare, MdFilterNone } from "react-icons/md";
 
-import useDocument from "../../hooks/rq/useDocument";
-import useDeactivateDocument from "../../hooks/rq/useDeactivateDocument";
-import useToggle from "../../hooks/useToggle";
+import useDocument from "hooks/rq/useDocument";
+import useDeactivateDocument from "hooks/rq/useDeactivateDocument";
+import useToggle from "hooks/useToggle";
 
-import TextEditor from "../../components/TextEditor";
-import Loading from "../../components/Loading";
-import PageHeader from "../../components/PageHeader";
-import DocumentTitle from "../../components/DocumentTitle";
-import Modal from "../../components/Modal";
-import ConfirmationDialog from "../../components/ConfirmationDialog";
+import TextEditor from "components/TextEditor";
+import Loading from "components/Loading";
+import PageHeader from "components/PageHeader";
+import DocumentTitle from "components/DocumentTitle";
+import Modal from "components/Modal";
+import ConfirmationDialog from "components/ConfirmationDialog";
 
 export default function DocumentEditor() {
 	const confirmationMessageRef = useRef("");

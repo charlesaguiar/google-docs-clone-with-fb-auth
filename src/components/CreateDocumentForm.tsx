@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useAuthContext } from "../contexts/AuthContext";
-import useCreateDocument from "../hooks/rq/useCreateDocument";
+import { useAuthContext } from "contexts/AuthContext";
+import useCreateDocument from "hooks/rq/useCreateDocument";
 
 import Button from "./Button";
 import Divider from "./Divider";

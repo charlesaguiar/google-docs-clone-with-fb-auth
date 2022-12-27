@@ -6,7 +6,7 @@ import {
 	useMemo,
 	useState,
 } from "react";
-import { auth, FirebaseUser, UserCredential } from "../lib/firebase";
+import { auth, FirebaseUser, UserCredential } from "lib/firebase";
 
 interface IUser {
 	uid: string;

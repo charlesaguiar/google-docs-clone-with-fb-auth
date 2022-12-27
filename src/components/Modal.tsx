@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { MdClose } from "react-icons/md";
 
 interface IModalProps {
@@ -42,7 +42,7 @@ export default function Modal({
 }
 
 const useHideBodyScroll = (overflowVisible: boolean) => {
-	useEffect(() => {
+	useLayoutEffect(() => {
 		const overflowState = overflowVisible ? "auto" : "hidden";
 		document.body.style.overflow = overflowState;
 	}, [overflowVisible]);

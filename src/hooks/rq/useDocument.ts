@@ -1,6 +1,5 @@
 import { useQuery } from "react-query";
-
-import { getDocument, IDocument } from "../../services/DocumentService";
+import { getDocument, IDocument } from "services/DocumentService";
 
 interface IUseDocumentOutput {
 	document: IDocument | undefined;

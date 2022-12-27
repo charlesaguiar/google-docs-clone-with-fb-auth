@@ -1,10 +1,10 @@
 import { MdLogout, MdMenu } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-import { useAuthContext } from "../contexts/AuthContext";
-import { useUiContext } from "../contexts/UiContext";
+import { useAuthContext } from "contexts/AuthContext";
+import { useUiContext } from "contexts/UiContext";
+import Logo from "assets/react.svg";
 
-import Logo from "../assets/react.svg";
 import Avatar from "./Avatar";
 
 export default function Navbar() {

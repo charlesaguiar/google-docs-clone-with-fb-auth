@@ -1,6 +1,6 @@
 import { createContext, useContext, useLayoutEffect, useMemo } from "react";
 import { useLocation } from "react-router-dom";
-import useToggle from "../hooks/useToggle";
+import useToggle from "hooks/useToggle";
 
 interface IUiContextProviderProps {
 	children: React.ReactNode;

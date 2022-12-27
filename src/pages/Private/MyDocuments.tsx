@@ -1,15 +1,16 @@
 import { useQuery } from "react-query";
 
-import { displayToast } from "../../utils/toast";
-import { useAuthContext } from "../../contexts/AuthContext";
-import { getDocuments } from "../../services/DocumentService";
-import useToggle from "../../hooks/useToggle";
+import useToggle from "hooks/useToggle";
 
-import CreateDocumentForm from "../../components/CreateDocumentForm";
-import Document from "../../components/Document";
-import Loading from "../../components/Loading";
-import PageHeader from "../../components/PageHeader";
-import Modal from "../../components/Modal";
+import { displayToast } from "utils/toast";
+import { useAuthContext } from "contexts/AuthContext";
+import { getDocuments } from "services/DocumentService";
+
+import CreateDocumentForm from "components/CreateDocumentForm";
+import Document from "components/Document";
+import Loading from "components/Loading";
+import PageHeader from "components/PageHeader";
+import Modal from "components/Modal";
 
 export default function MyDocuments() {
 	const [createDocumentModalVisible, toggleCreateDocumentModal] = useToggle();

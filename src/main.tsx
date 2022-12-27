@@ -1,15 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
-import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+import AuthProvider from "contexts/AuthContext";
+import UiProvider from "contexts/UiContext";
 
 import App from "./App";
-import AuthProvider from "./contexts/AuthContext";
 
-import "./index.css";
+import "index.css";
 import "react-toastify/dist/ReactToastify.css";
 import "quill/dist/quill.snow.css";
-import UiProvider from "./contexts/UiContext";
 
 const queryClient = new QueryClient();
 

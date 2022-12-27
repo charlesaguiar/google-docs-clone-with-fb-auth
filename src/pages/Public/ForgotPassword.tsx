@@ -2,9 +2,9 @@ import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { MdArrowBack } from "react-icons/md";
 
-import { useAuthContext } from "../../contexts/AuthContext";
-import { displayToast } from "../../utils/toast";
-import { AuthError, parseFirebaseErrorMessage } from "../../lib/firebase";
+import { useAuthContext } from "contexts/AuthContext";
+import { displayToast } from "utils/toast";
+import { AuthError, parseFirebaseErrorMessage } from "lib/firebase";
 
 import Button from "../../components/Button";
 

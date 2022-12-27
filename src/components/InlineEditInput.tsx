@@ -4,7 +4,8 @@ import {
 	MdCheckCircleOutline,
 	MdOutlineCancel,
 } from "react-icons/md";
-import useToggle from "../hooks/useToggle";
+import useToggle from "hooks/useToggle";
+
 import Input from "./Input";
 import Loading from "./Loading";
 

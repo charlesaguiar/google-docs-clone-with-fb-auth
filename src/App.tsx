@@ -4,19 +4,19 @@ import ClipLoader from "react-spinners/ClipLoader";
 
 import { useAuthContext } from "./contexts/AuthContext";
 
-import Signup from "./pages/Public/Signup";
-import Login from "./pages/Public/Login";
-import ForgotPassword from "./pages/Public/ForgotPassword";
+import Signup from "pages/Public/Signup";
+import Login from "pages/Public/Login";
+import ForgotPassword from "pages/Public/ForgotPassword";
 
-import Dashboard from "./pages/Private/Dashboard";
-import UpdateProfile from "./pages/Private/UpdateProfile";
-import MyDocuments from "./pages/Private/MyDocuments";
-import SharedWithMe from "./pages/Private/SharedWithMe";
-import Peers from "./pages/Private/Peers";
-import DocumentEditor from "./pages/Private/DocumentEditor";
+import Dashboard from "pages/Private/Dashboard";
+import UpdateProfile from "pages/Private/UpdateProfile";
+import MyDocuments from "pages/Private/MyDocuments";
+import SharedWithMe from "pages/Private/SharedWithMe";
+import Peers from "pages/Private/Peers";
+import DocumentEditor from "pages/Private/DocumentEditor";
 
-import PublicRoutesLayout from "./layouts/PublicRoutesLayout";
-import PrivateRoutesLayout from "./layouts/PrivateRoutesLayout";
+import PublicRoutesLayout from "layouts/PublicRoutesLayout";
+import PrivateRoutesLayout from "layouts/PrivateRoutesLayout";
 
 function App() {
 	const { isAuthenticated, loading } = useAuthContext();

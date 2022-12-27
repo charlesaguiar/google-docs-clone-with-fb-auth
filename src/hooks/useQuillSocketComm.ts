@@ -1,7 +1,8 @@
 import Quill, { TextChangeHandler } from "quill";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useAuthContext } from "../contexts/AuthContext";
+import { useAuthContext } from "contexts/AuthContext";
+
 import useQuill from "./useQuill";
 import useSocket from "./useSocket";
 

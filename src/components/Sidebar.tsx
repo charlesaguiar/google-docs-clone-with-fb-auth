@@ -4,7 +4,8 @@ import {
 	MdFolderShared,
 	MdPeopleAlt,
 } from "react-icons/md";
-import { useUiContext } from "../contexts/UiContext";
+import { useUiContext } from "contexts/UiContext";
+
 import MenuItem from "./MenuItem";
 
 export default function Sidebar() {

@@ -1,8 +1,7 @@
 import { useMutation, UseMutateFunction } from "react-query";
 import { useNavigate } from "react-router-dom";
-
-import { deleteDocument } from "../../services/DocumentService";
-import { displayToast } from "../../utils/toast";
+import { deleteDocument } from "services/DocumentService";
+import { displayToast } from "utils/toast";
 
 interface IUseDocumentOutput {
 	deactivate: UseMutateFunction<

@@ -1,7 +1,6 @@
 import { useMutation, UseMutateFunction } from "react-query";
-
-import { createDocument, IDocument } from "../../services/DocumentService";
-import { displayToast } from "../../utils/toast";
+import { createDocument, IDocument } from "services/DocumentService";
+import { displayToast } from "utils/toast";
 
 interface IUseDocumentOutput {
 	createdDocument: IDocument | undefined;

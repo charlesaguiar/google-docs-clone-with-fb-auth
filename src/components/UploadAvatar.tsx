@@ -41,7 +41,7 @@ export default function UploadAvatar({
 				className="hidden"
 				type="file"
 				onChange={handleAvatarSubmit}
-				accept="image/png, image/jpg"
+				accept="image/png, image/jpeg"
 			/>
 		</div>
 	);

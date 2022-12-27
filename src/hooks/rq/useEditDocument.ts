@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient, UseMutateFunction } from "react-query";
-
 import {
 	editDocument,
 	IDocument,
 	IEditDocumentInput,
-} from "../../services/DocumentService";
-import { displayToast } from "../../utils/toast";
+} from "services/DocumentService";
+import { displayToast } from "utils/toast";
+
 import { DOCUMENT_QUERY_KEY } from "./queryKeys";
 
 interface IUseDocumentOutput {

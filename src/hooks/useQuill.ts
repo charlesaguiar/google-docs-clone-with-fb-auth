@@ -1,5 +1,5 @@
-import Quill from "quill";
 import { useCallback, useState } from "react";
+import Quill from "quill";
 
 interface IUseQuillOutput {
 	quill: Quill | undefined;
