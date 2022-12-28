@@ -1,5 +1,7 @@
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { MdClose } from "react-icons/md";
+
+import useOnClickOutside from "hooks/useOnClickOutside";
 
 interface IModalProps {
 	visible: boolean;
@@ -14,13 +16,18 @@ export default function Modal({
 	title,
 	children,
 }: IModalProps) {
+	const modalRef = useRef<HTMLDivElement>(null);
+	useOnClickOutside(modalRef, toggleVisible);
 	useHideBodyScroll(!visible);
 
 	if (!visible) return null;
 
 	return (
 		<div className="flex items-center justify-center absolute inset-0 w-screen h-screen z-50 bg-backdrop">
-			<div className=" flex flex-col bg-white rounded-lg shadow-lg min-w-[250px] md:min-w-[75vw] xl:min-w-[50vw]">
+			<div
+				ref={modalRef}
+				className=" flex flex-col bg-white rounded-lg shadow-lg min-w-[250px] md:min-w-[75vw] xl:min-w-[50vw]"
+			>
 				{/* HEADER */}
 				<div className="flex justify-between items-center p-4">
 					<span className="font-bold uppercase text-lg">{title}</span>

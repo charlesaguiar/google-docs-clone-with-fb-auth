@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import {
 	MdHome,
 	MdOutlineFolderOpen,
@@ -5,13 +6,19 @@ import {
 	MdPeopleAlt,
 } from "react-icons/md";
 import { useUiContext } from "contexts/UiContext";
+import useOnClickOutside from "hooks/useOnClickOutside";
 
 import MenuItem from "./MenuItem";
 
 export default function Sidebar() {
-	const { showSidebar } = useUiContext();
+	const sidebarRef = useRef<HTMLElement>(null);
+	const { showSidebar, toggleSideBar } = useUiContext();
+
+	useOnClickOutside(sidebarRef, () => toggleSideBar({ force: false }));
+
 	return (
 		<aside
+			ref={sidebarRef}
 			className={`fixed ${
 				showSidebar ? "translate-x-0" : "-translate-x-full"
 			} bg-mainbg z-50 top-[theme(height.nav)] left-0 overflow-x-hidden shadow-lg px-4 py-8 w-sidebar max-w-sidebar h-[calc(100vh-theme(height.nav))] max-h-[calc(100vh-theme(height.nav))] border-r border-r-gray-300 overflow-y-auto duration-300 ease-in-out md:translate-x-0  md:z-0`}

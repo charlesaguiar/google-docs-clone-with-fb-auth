@@ -63,7 +63,7 @@ const InlineEditInput: React.FC<IInlineEditInputProps> = ({
 						autoFocus
 						ref={documentNameRef}
 						defaultValue={defaultValue}
-						className="px-2 py-1"
+						className="font-normal text-base"
 						error={error}
 					/>
 				</form>

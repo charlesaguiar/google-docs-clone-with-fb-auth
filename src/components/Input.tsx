@@ -1,35 +1,72 @@
 import React, { forwardRef } from "react";
 import { MdErrorOutline } from "react-icons/md";
 
-interface IInputProps extends React.ComponentPropsWithoutRef<"input"> {
+export interface IInputProps extends React.ComponentPropsWithoutRef<"input"> {
 	label?: string;
+	isRequired?: boolean;
+	startIcon?: React.ReactNode;
+	endIcon?: React.ReactNode;
 	error?: string;
 }
 
 const Input = forwardRef<HTMLInputElement, IInputProps>(
-	({ id, label, className, error, ...rest }, ref) => {
+	(
+		{ id, label, isRequired, startIcon, endIcon, className, error, ...rest },
+		ref
+	) => {
 		return (
 			<div className="flex flex-col">
-				{label ? (
-					<label className="text-sm text-inherit mb-2" htmlFor={id}>
-						{label}
-					</label>
-				) : null}
-				<input
-					{...rest}
-					id={id}
-					ref={ref}
-					className={`p-4 border border-gray-400 border-solid rounded ${className}`}
-				/>
-				{error ? (
-					<div className="flex gap-2 mt-1 items-center text-red-500">
-						<MdErrorOutline size={16} />
-						<span className="text-sm ">{error}</span>
-					</div>
-				) : null}
+				<Label id={id} label={label} isRequired={isRequired} />
+				<div
+					className={`flex items-center py-2 px-4 gap-2 rounded bg-white border border-solid ${
+						error
+							? "border-red-500"
+							: "border-gray-400 focus-within:border-blue-500"
+					} focus-within:border-2`}
+				>
+					{startIcon || null}
+					<input
+						{...rest}
+						id={id}
+						ref={ref}
+						className={`w-full focus-within:outline-none ${className}`}
+					/>
+					{endIcon || null}
+				</div>
+				<Error error={error} />
 			</div>
 		);
 	}
 );
+
+const Label: React.FC<Pick<IInputProps, "id" | "label" | "isRequired">> = ({
+	id,
+	label,
+	isRequired,
+}) => {
+	if (!label) return null;
+
+	return (
+		<div className="flex gap-1">
+			<label className="text-sm text-inherit" htmlFor={id}>
+				{label}
+			</label>
+			{isRequired ? (
+				<span className="text-xs text-red-500 font-bold">*</span>
+			) : null}
+		</div>
+	);
+};
+
+const Error: React.FC<Pick<IInputProps, "error">> = ({ error }) => {
+	if (!error) return null;
+
+	return (
+		<div className="flex gap-1 mt-1 items-center text-red-500">
+			<MdErrorOutline size={12} />
+			<span className="text-xs">{error}</span>
+		</div>
+	);
+};
 
 export default Input;

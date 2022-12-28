@@ -8,7 +8,7 @@ interface IUiContextProviderProps {
 
 interface IUiContext {
 	showSidebar: boolean;
-	toggleSideBar: () => void;
+	toggleSideBar: (params?: { force?: boolean }) => void;
 }
 
 const UiContext = createContext({} as IUiContext);
