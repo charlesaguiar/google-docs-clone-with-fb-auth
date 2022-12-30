@@ -81,15 +81,15 @@ const useQuillSocketComm = (): IUseQuillSocketCommOutput => {
 
 	/* LOAD DOCUMENT BASED ON DOCUMENT ID */
 	useEffect(() => {
-		if (!socket || !quill || !documentId || !user?.uid) return;
+		if (!socket || !quill || !documentId || !user?.id) return;
 
 		socket.once("load-document", (document) => {
 			quill.setContents(document);
 			quill.enable();
 		});
 
-		socket.emit("get-document", documentId, user?.uid, "Test Document");
-	}, [quill, socket, documentId, user?.uid]);
+		socket.emit("get-document", documentId, user.id, "Test Document");
+	}, [quill, socket, documentId, user?.id]);
 
 	return { quill, quillEditorRef };
 };

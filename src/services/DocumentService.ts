@@ -14,7 +14,7 @@ export interface IEditDocumentInput {
 	name: string;
 }
 
-export const getDocuments = (ownerId: string) =>
+export const getDocuments = (ownerId: string | null) =>
 	api
 		.get<{ documents: IDocument[] }>("documents", { params: { ownerId } })
 		.then((r) => r.data.documents);

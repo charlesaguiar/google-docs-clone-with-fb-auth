@@ -1,10 +1,8 @@
-import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { LOGGED_USER_QUERY_KEY } from "consts/queryKeys";
-import * as AuthService from "services/firebase/AuthService";
+import { useAuthContext } from "contexts/AuthContext";
 import useFileReader from "hooks/useFileReader";
 
 import Button from "components/Button";
@@ -19,10 +17,7 @@ import useUpdateUserProfile from "./useUpdateUserProfile";
 
 const UpdateProfileForm: React.FC = () => {
 	const navigate = useNavigate();
-	const { data: loggedUser, isLoading } = useQuery(LOGGED_USER_QUERY_KEY, {
-		queryFn: AuthService.getLoggedUser,
-		refetchOnWindowFocus: false,
-	});
+	const { user: loggedUser, loading } = useAuthContext();
 
 	const [avatar, avatarUrl, handleAvatarSubmit] = useFileReader(
 		loggedUser?.avatarUrl
@@ -37,7 +32,7 @@ const UpdateProfileForm: React.FC = () => {
 		resolver: zodResolver(ProfileFormSchema),
 	});
 
-	if (isLoading || !loggedUser) return <Loading inline={false} />;
+	if (loading || !loggedUser) return <Loading inline={false} />;
 
 	return (
 		<form

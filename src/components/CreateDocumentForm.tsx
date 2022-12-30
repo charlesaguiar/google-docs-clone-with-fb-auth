@@ -25,14 +25,14 @@ export default function CreateDocumentForm({
 	const onSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
 		e.preventDefault();
 
-		if (!user?.uid) return;
+		if (!user?.id) return;
 
 		if (!documentNameRef.current?.value) {
 			setErrorMessage("Please, provide a name for the document");
 			return;
 		}
 
-		create({ name: documentNameRef.current?.value, ownerId: user?.uid });
+		create({ name: documentNameRef.current?.value, ownerId: user.id });
 	};
 
 	useEffect(() => {

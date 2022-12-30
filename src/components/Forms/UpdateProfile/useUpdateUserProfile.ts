@@ -1,9 +1,7 @@
 import { useCallback, useState } from "react";
-import { useQueryClient } from "react-query";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { SubmitHandler } from "react-hook-form";
 
-import { LOGGED_USER_QUERY_KEY } from "consts/queryKeys";
 import { UserType } from "schemas/user";
 import { AuthError, parseFirebaseErrorMessage, storage } from "lib/firebase";
 import { useAuthContext } from "contexts/AuthContext";
@@ -22,7 +20,6 @@ const useUpdateUserProfile = (
 ): UseUpdateUserProfileOutput => {
 	const [isUpdating, setIsUpdating] = useState(false);
 	const { updateProfile, updatePassword } = useAuthContext();
-	const queryClient = useQueryClient();
 
 	const onUpdateSubmit: SubmitHandler<ProfileFormSchemaType> = useCallback(
 		async ({ name, password }) => {
@@ -54,7 +51,6 @@ const useUpdateUserProfile = (
 
 			try {
 				await Promise.all(promises);
-				await queryClient.refetchQueries([LOGGED_USER_QUERY_KEY]);
 				displayToast("Profile successfully updated!", {
 					type: "success",
 				});

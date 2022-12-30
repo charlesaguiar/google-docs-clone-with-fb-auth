@@ -2,8 +2,8 @@ import { useQuery } from "react-query";
 
 import useToggle from "hooks/useToggle";
 
+import * as AuthService from "services/firebase/AuthService";
 import { displayToast } from "utils/toast";
-import { useAuthContext } from "contexts/AuthContext";
 import { getDocuments } from "services/DocumentService";
 
 import CreateDocumentForm from "components/CreateDocumentForm";
@@ -11,13 +11,14 @@ import Document from "components/Document";
 import Loading from "components/Loading";
 import PageHeader from "components/PageHeader";
 import Modal from "components/Modal";
+import { useAuthContext } from "contexts/AuthContext";
 
 export default function MyDocuments() {
 	const [createDocumentModalVisible, toggleCreateDocumentModal] = useToggle();
-	const { user } = useAuthContext();
+	const { loggedUserId } = useAuthContext();
 
 	const { isLoading, error, data } = useQuery("myDocuments", () =>
-		getDocuments(user?.authId!)
+		getDocuments(loggedUserId)
 	);
 
 	if (isLoading || !data) return <Loading />;

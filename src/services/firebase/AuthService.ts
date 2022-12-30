@@ -4,6 +4,8 @@ import * as UserService from "./UserService";
 
 export const isAuthenticated = () => Boolean(auth.currentUser);
 
+export const loggedUserId = () => localStorage.getItem("docs:userId");
+
 export const getLoggedUser = async (): Promise<UserType | undefined> => {
 	const loggedUser = auth.currentUser;
 	if (!loggedUser?.uid) return;
@@ -19,11 +21,16 @@ export const signup = async (name: string, email: string, password: string) => {
 	return UserService.createNewUser(user?.uid, name, email);
 };
 
-export const login = (email: string, password: string) => {
-	return auth.signInWithEmailAndPassword(email, password);
+export const login = async (email: string, password: string) => {
+	await auth.signInWithEmailAndPassword(email, password);
+	if (!auth.currentUser) return;
+
+	const loggedUser = await UserService.getUserByAuthId(auth.currentUser.uid);
+	localStorage.setItem("docs:userId", loggedUser?.id || "");
 };
 
 export const logout = () => {
+	localStorage.removeItem("docs:userId");
 	return auth.signOut();
 };
 

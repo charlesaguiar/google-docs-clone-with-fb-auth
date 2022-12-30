@@ -6,17 +6,13 @@ import {
 	useState,
 } from "react";
 import { useQueryClient } from "react-query";
-import { UserCredential } from "lib/firebase";
 
 import useOnAuthStateChange from "hooks/firebase/useOnAuthStateChange";
 
 import { UserType } from "schemas/user";
 import * as AuthService from "services/firebase/AuthService";
 
-type FirebaseLoginAction = (
-	email: string,
-	password: string
-) => Promise<UserCredential>;
+type FirebaseLoginAction = (email: string, password: string) => Promise<void>;
 
 type FirebaseSignupAction = (
 	name: string,
@@ -26,6 +22,7 @@ type FirebaseSignupAction = (
 
 interface IAuthContext {
 	user?: UserType;
+	loggedUserId: string | null;
 	loading: boolean;
 	isAuthenticated: boolean;
 	signup: FirebaseSignupAction;
@@ -89,8 +86,9 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 	const value = useMemo(
 		() => ({
 			user,
-			loading,
+			loggedUserId: AuthService.loggedUserId(),
 			isAuthenticated: AuthService.isAuthenticated(),
+			loading,
 			login,
 			logout,
 			signup,
