@@ -1,14 +1,15 @@
 import { useCallback, useState } from "react";
+import { useQueryClient } from "react-query";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { SubmitHandler } from "react-hook-form";
 
+import { LOGGED_USER_QUERY_KEY } from "consts/queryKeys";
 import { UserType } from "schemas/user";
 import { AuthError, parseFirebaseErrorMessage, storage } from "lib/firebase";
 import { useAuthContext } from "contexts/AuthContext";
 import { displayToast } from "utils/toast";
 
 import { ProfileFormSchemaType } from "./schema";
-import { useQueryClient } from "react-query";
 
 type UseUpdateUserProfileOutput = [
 	isUpdating: boolean,
@@ -53,7 +54,7 @@ const useUpdateUserProfile = (
 
 			try {
 				await Promise.all(promises);
-				queryClient.refetchQueries(["logged-user"]);
+				await queryClient.refetchQueries([LOGGED_USER_QUERY_KEY]);
 				displayToast("Profile successfully updated!", {
 					type: "success",
 				});

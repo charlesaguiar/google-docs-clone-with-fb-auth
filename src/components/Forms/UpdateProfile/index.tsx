@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { LOGGED_USER_QUERY_KEY } from "consts/queryKeys";
 import * as AuthService from "services/firebase/AuthService";
 import useFileReader from "hooks/useFileReader";
 
@@ -18,7 +19,7 @@ import useUpdateUserProfile from "./useUpdateUserProfile";
 
 const UpdateProfileForm: React.FC = () => {
 	const navigate = useNavigate();
-	const { data: loggedUser, isLoading } = useQuery("logged-user", {
+	const { data: loggedUser, isLoading } = useQuery(LOGGED_USER_QUERY_KEY, {
 		queryFn: AuthService.getLoggedUser,
 		refetchOnWindowFocus: false,
 	});

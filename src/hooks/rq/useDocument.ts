@@ -1,12 +1,11 @@
 import { useQuery } from "react-query";
 import { getDocument, IDocument } from "services/DocumentService";
+import { DOCUMENT_QUERY_KEY } from "consts/queryKeys";
 
 interface IUseDocumentOutput {
 	document: IDocument | undefined;
 	isLoading: boolean;
 }
-
-const DOCUMENT_QUERY_KEY = "document-meta";
 
 const useDocument = (documentId: string): IUseDocumentOutput => {
 	const { isLoading, data: document } = useQuery(

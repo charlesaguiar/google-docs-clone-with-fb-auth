@@ -5,8 +5,7 @@ import {
 	IEditDocumentInput,
 } from "services/DocumentService";
 import { displayToast } from "utils/toast";
-
-import { DOCUMENT_QUERY_KEY } from "./queryKeys";
+import { DOCUMENT_QUERY_KEY } from "consts/queryKeys";
 
 interface IUseDocumentOutput {
 	edit: UseMutateFunction<
@@ -25,6 +24,7 @@ const useEditDocument = (): IUseDocumentOutput => {
 		mutationFn: (input: IEditDocumentInput) =>
 			editDocument(input.uid, input.name),
 		onMutate: async (newDocument) => {
+			/* Optimistic Update */
 			await queryClient.cancelQueries({ queryKey: [DOCUMENT_QUERY_KEY] });
 			const previousDocument = queryClient.getQueryData<IDocument>([
 				DOCUMENT_QUERY_KEY,
