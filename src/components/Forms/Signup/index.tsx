@@ -28,7 +28,7 @@ const SignupForm: React.FC = () => {
 		setLoading(true);
 
 		try {
-			await signup(data.email, data.password);
+			await signup(data.name, data.email, data.password);
 		} catch (e) {
 			displayToast(parseFirebaseErrorMessage(e as AuthError), {
 				type: "error",

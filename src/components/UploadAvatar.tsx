@@ -3,31 +3,13 @@ import Input from "./Input";
 
 interface IUploadAvatarProps {
 	avatarUrl?: string | null;
-	setAvatar: React.Dispatch<React.SetStateAction<File | undefined>>;
-	setAvatarUrl: React.Dispatch<React.SetStateAction<string | null | undefined>>;
+	handleAvatarSubmit: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function UploadAvatar({
 	avatarUrl,
-	setAvatarUrl,
-	setAvatar,
+	handleAvatarSubmit,
 }: IUploadAvatarProps) {
-	const handleAvatarSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
-		e.preventDefault();
-		const file = e.target?.files?.[0];
-
-		if (!file) return;
-
-		setAvatar(file);
-
-		const fileReader = new FileReader();
-		fileReader.addEventListener("load", () => {
-			setAvatarUrl(fileReader.result as string);
-		});
-
-		fileReader.readAsDataURL(file);
-	};
-
 	return (
 		<div className="relative flex items-center w-[120px] h-[120px] rounded-full border border-gray-300 p-4">
 			<label
@@ -42,6 +24,7 @@ export default function UploadAvatar({
 				type="file"
 				onChange={handleAvatarSubmit}
 				accept="image/png, image/jpeg"
+				rootClassname="invisible"
 			/>
 		</div>
 	);

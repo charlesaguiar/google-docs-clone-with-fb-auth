@@ -1,9 +1,9 @@
 import { MdLogout, MdMenu } from "react-icons/md";
+import { FaDochub } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 import { useAuthContext } from "contexts/AuthContext";
 import { useUiContext } from "contexts/UiContext";
-import Logo from "assets/react.svg";
 
 import Avatar from "./Avatar";
 
@@ -15,15 +15,15 @@ export default function Navbar() {
 		<header className="inline-block sticky top-0 z-50 w-full bg-gray-50 print:hidden">
 			<nav className="flex items-center justify-between shadow-lg h-nav">
 				<div
-					onClick={toggleSideBar}
+					onClick={() => toggleSideBar()}
 					className="block mx-4 md:mx-6 lg:mx-8 md:hidden cursor-pointer hover:text-gray-500"
 				>
 					<MdMenu size={28} />
 				</div>
 				<Link className="mx-4 md:mx-6 lg:mx-8" to="/">
-					<div className="flex gap-4 items-center">
-						<img src={Logo} />
-						<strong className="hidden xs:block">GoogleDocsClone</strong>
+					<div className="flex gap-1 items-center">
+						<FaDochub className="text-blue-500" size={32} />
+						<strong className="hidden xs:block">ReactDocs</strong>
 					</div>
 				</Link>
 
@@ -37,7 +37,7 @@ export default function Navbar() {
 					</button>
 					<Link to="/update-profile">
 						<div className="w-14 h-14 cursor-pointer">
-							<Avatar avatarUrl={user?.photoUrl} placeholderSize={12} />
+							<Avatar avatarUrl={user?.avatarUrl} placeholderSize={12} />
 						</div>
 					</Link>
 				</div>

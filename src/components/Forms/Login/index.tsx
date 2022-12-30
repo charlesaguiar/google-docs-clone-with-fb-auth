@@ -55,6 +55,7 @@ const LoginForm: React.FC = () => {
 				type="password"
 				error={errors.password?.message}
 				placeholder="Your password"
+				defaultValue="Charles123"
 				{...register("password")}
 			/>
 

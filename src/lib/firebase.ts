@@ -1,6 +1,7 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import { getStorage } from "firebase/storage";
+import { getDatabase } from "firebase/database";
 
 const app = firebase.initializeApp({
 	apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -10,8 +11,9 @@ const app = firebase.initializeApp({
 	messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
 	appId: import.meta.env.VITE_FIREBASE_APP_ID,
 });
-export const storage = getStorage(app);
 
+export const storage = getStorage(app);
+export const database = getDatabase(app);
 export const auth = app.auth();
 
 /* ERROR MESSAGE PARSER */

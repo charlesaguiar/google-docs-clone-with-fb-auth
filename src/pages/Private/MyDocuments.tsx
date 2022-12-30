@@ -17,7 +17,7 @@ export default function MyDocuments() {
 	const { user } = useAuthContext();
 
 	const { isLoading, error, data } = useQuery("myDocuments", () =>
-		getDocuments(user?.uid!)
+		getDocuments(user?.authId!)
 	);
 
 	if (isLoading || !data) return <Loading />;

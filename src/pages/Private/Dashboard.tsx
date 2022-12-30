@@ -1,5 +1,7 @@
-import PageHeader from "components/PageHeader";
 import { useAuthContext } from "contexts/AuthContext";
+
+import Loading from "components/Loading";
+import PageHeader from "components/PageHeader";
 
 export default function Dashboard() {
 	const { user } = useAuthContext();
@@ -7,12 +9,16 @@ export default function Dashboard() {
 	return (
 		<div>
 			<PageHeader title="Home" />
-			<div className="flex flex-col">
-				<div className="flex flex-col gap-1">
-					<span>{`Welcome, ${user?.name || "user"}`}</span>
-					<span className="text-sm text-gray-300">{user?.email}</span>
+			{Boolean(user) ? (
+				<div className="flex flex-col">
+					<div className="flex flex-col gap-1">
+						<span>{`Welcome, ${user?.name || "user"}`}</span>
+						<span className="text-sm text-gray-300">{user?.email}</span>
+					</div>
 				</div>
-			</div>
+			) : (
+				<Loading inline={false} />
+			)}
 		</div>
 	);
 }

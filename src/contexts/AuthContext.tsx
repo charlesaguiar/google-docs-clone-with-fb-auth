@@ -2,37 +2,37 @@ import {
 	createContext,
 	useCallback,
 	useContext,
-	useEffect,
 	useMemo,
 	useState,
 } from "react";
-import { auth, FirebaseUser, UserCredential } from "lib/firebase";
+import { useQueryClient } from "react-query";
+import { UserCredential } from "lib/firebase";
 
-interface IUser {
-	uid: string;
-	name?: string | null;
-	email: string | null;
-	photoUrl?: string | null;
-}
+import useOnAuthStateChange from "hooks/firebase/useOnAuthStateChange";
 
-type FirebaseAuthAction = (
+import { UserType } from "schemas/user";
+import * as AuthService from "services/firebase/AuthService";
+
+type FirebaseLoginAction = (
 	email: string,
 	password: string
 ) => Promise<UserCredential>;
 
+type FirebaseSignupAction = (
+	name: string,
+	email: string,
+	password: string
+) => Promise<void>;
+
 interface IAuthContext {
-	user: IUser | null;
+	user?: UserType;
 	loading: boolean;
 	isAuthenticated: boolean;
-	signup: FirebaseAuthAction;
-	login: FirebaseAuthAction;
+	signup: FirebaseSignupAction;
+	login: FirebaseLoginAction;
 	logout: () => Promise<void>;
 	resetPassword: (email: string) => Promise<void>;
-	updateProfile: (
-		displayName: string | null | undefined,
-		photoURL: string | null | undefined
-	) => Promise<void>;
-	updateEmail: (newEmail: string) => Promise<void>;
+	updateProfile: (newUser: UserType) => Promise<void>;
 	updatePassword: (newPassword: string) => Promise<void>;
 }
 
@@ -45,90 +45,72 @@ export const useAuthContext = () => {
 const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
-	const [user, setUser] = useState<IUser | null>(null);
+	const [user, setUser] = useState<UserType | undefined>();
 	const [loading, setLoading] = useState(true);
 
-	const signup = (email: string, password: string) => {
-		return auth.createUserWithEmailAndPassword(email, password);
+	const queryClient = useQueryClient();
+
+	const signup = (name: string, email: string, password: string) => {
+		return AuthService.signup(name, email, password);
 	};
 
 	const login = (email: string, password: string) => {
-		return auth.signInWithEmailAndPassword(email, password);
+		return AuthService.login(email, password);
 	};
 
 	const logout = async () => {
-		await auth.signOut();
+		queryClient.clear();
+		await AuthService.logout();
 	};
 
 	const resetPassword = (email: string) => {
-		return auth.sendPasswordResetEmail(email);
+		return AuthService.resetPassword(email);
 	};
 
-	const updateProfile = async (
-		displayName: string | null | undefined,
-		photoURL: string | null | undefined
-	) => {
-		if (!auth.currentUser || !user) return Promise.resolve();
-		await auth.currentUser.updateProfile({ displayName, photoURL });
-		setUser({ ...user, name: displayName, photoUrl: photoURL });
-	};
-
-	const updateEmail = async (newEmail: string) => {
-		if (!auth.currentUser || !user) return Promise.resolve();
-		await auth.currentUser.updateEmail(newEmail);
-		setUser({ ...user, email: newEmail });
+	const updateProfile = async (newUser: UserType) => {
+		if (!user) return Promise.resolve();
+		await AuthService.updateUserProfile(newUser);
+		setUser({ ...user, ...newUser });
 	};
 
 	const updatePassword = async (newPassword: string) => {
-		if (!auth.currentUser) return Promise.resolve();
-		return auth.currentUser.updatePassword(newPassword);
+		return AuthService.updatePassword(newPassword);
 	};
 
-	const updateUser = useCallback((user: FirebaseUser | null) => {
-		setUser(
-			user
-				? {
-						uid: user.uid,
-						name: user.displayName,
-						email: user.email,
-						photoUrl: user.photoURL,
-				  }
-				: null
-		);
+	const updateUser = useCallback(async () => {
+		setUser(await AuthService.getLoggedUser());
 	}, []);
 
-	useEffect(() => {
-		const unsubscribe = auth.onAuthStateChanged((user) => {
-			updateUser(user);
-			setLoading(false);
-		});
+	useOnAuthStateChange(() => {
+		updateUser();
+		setLoading(false);
+	});
 
-		return unsubscribe;
-	}, [updateUser]);
-
-	const isAuthenticated = useMemo(
-		() => Boolean(user && !loading),
-		[user, loading]
+	const value = useMemo(
+		() => ({
+			user,
+			loading,
+			isAuthenticated: AuthService.isAuthenticated(),
+			login,
+			logout,
+			signup,
+			resetPassword,
+			updateProfile,
+			updatePassword,
+		}),
+		[
+			user,
+			loading,
+			login,
+			logout,
+			signup,
+			resetPassword,
+			updateProfile,
+			updatePassword,
+		]
 	);
 
-	return (
-		<AuthContext.Provider
-			value={{
-				user,
-				loading,
-				isAuthenticated,
-				login,
-				logout,
-				signup,
-				resetPassword,
-				updateProfile,
-				updateEmail,
-				updatePassword,
-			}}
-		>
-			{children}
-		</AuthContext.Provider>
-	);
+	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;
