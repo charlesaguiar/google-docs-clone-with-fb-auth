@@ -2,7 +2,8 @@ import { useQuery } from "react-query";
 
 import useToggle from "hooks/useToggle";
 
-import * as AuthService from "services/firebase/AuthService";
+import { useAuthContext } from "contexts/AuthContext";
+
 import { displayToast } from "utils/toast";
 import { getDocuments } from "services/DocumentService";
 
@@ -11,14 +12,13 @@ import Document from "components/Document";
 import Loading from "components/Loading";
 import PageHeader from "components/PageHeader";
 import Modal from "components/Modal";
-import { useAuthContext } from "contexts/AuthContext";
 
 export default function MyDocuments() {
 	const [createDocumentModalVisible, toggleCreateDocumentModal] = useToggle();
-	const { loggedUserId } = useAuthContext();
+	const { getLoggedUserId } = useAuthContext();
 
 	const { isLoading, error, data } = useQuery("myDocuments", () =>
-		getDocuments(loggedUserId)
+		getDocuments(getLoggedUserId())
 	);
 
 	if (isLoading || !data) return <Loading />;
@@ -42,7 +42,7 @@ export default function MyDocuments() {
 					},
 				]}
 			/>
-			<div className="grid gap-4 grid-cols-2 md:grid-col-3 lg:grid-cols-4">
+			<div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
 				{data.map((document) => (
 					<Document key={document.uid} document={document} />
 				))}

@@ -24,11 +24,16 @@ export const getDocument = (documentId: string) =>
 		.get<{ document: IDocument }>(`document/${documentId}`)
 		.then((r) => r.data.document);
 
-export const createDocument = (name: string, ownerId: string) =>
+export const createDocument = (
+	name: string,
+	ownerId: string,
+	content?: string
+) =>
 	api
 		.post<{ message: string; data: { document: IDocument } }>("document", {
 			name,
 			ownerId,
+			data: content,
 		})
 		.then((r) => ({
 			message: r.data.message,

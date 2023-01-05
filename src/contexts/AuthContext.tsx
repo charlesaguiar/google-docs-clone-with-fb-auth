@@ -22,7 +22,6 @@ type FirebaseSignupAction = (
 
 interface IAuthContext {
 	user?: UserType;
-	loggedUserId: string | null;
 	loading: boolean;
 	isAuthenticated: boolean;
 	signup: FirebaseSignupAction;
@@ -31,6 +30,7 @@ interface IAuthContext {
 	resetPassword: (email: string) => Promise<void>;
 	updateProfile: (newUser: UserType) => Promise<void>;
 	updatePassword: (newPassword: string) => Promise<void>;
+	getLoggedUserId: () => string | null;
 }
 
 const AuthContext = createContext({} as IAuthContext);
@@ -86,7 +86,6 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 	const value = useMemo(
 		() => ({
 			user,
-			loggedUserId: AuthService.loggedUserId(),
 			isAuthenticated: AuthService.isAuthenticated(),
 			loading,
 			login,
@@ -95,6 +94,7 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 			resetPassword,
 			updateProfile,
 			updatePassword,
+			getLoggedUserId: AuthService.loggedUserId,
 		}),
 		[
 			user,

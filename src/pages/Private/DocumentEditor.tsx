@@ -12,13 +12,16 @@ import PageHeader from "components/PageHeader";
 import DocumentTitle from "components/DocumentTitle";
 import Modal from "components/Modal";
 import ConfirmationDialog from "components/ConfirmationDialog";
+import useCloneDocument from "hooks/rq/useCloneDocument";
 
 export default function DocumentEditor() {
-	const confirmationMessageRef = useRef("");
+	const confirmationRef = useRef({ message: "", handler: () => {} });
 
 	const { id: documentId } = useParams();
 	const { document, isLoading } = useDocument(documentId || "");
+
 	const { deactivate, isDeactivating } = useDeactivateDocument();
+	const { clone, isCloning } = useCloneDocument(document);
 
 	const [displayConfirmationModal, toggleConfirmationModal] = useToggle();
 
@@ -42,8 +45,10 @@ export default function DocumentEditor() {
 						label: "Delete",
 						Icon: <MdDelete size={24} />,
 						handler: () => {
-							confirmationMessageRef.current =
-								"Do you really want to delete this document?";
+							confirmationRef.current = {
+								message: "Do you really want to delete this document?",
+								handler: () => deactivate({ documentId: document.uid }),
+							};
 							toggleConfirmationModal();
 						},
 					},
@@ -51,7 +56,13 @@ export default function DocumentEditor() {
 						variant: "primary",
 						label: "Clone",
 						Icon: <MdFilterNone size={24} />,
-						handler: toggleConfirmationModal,
+						handler: () => {
+							confirmationRef.current = {
+								message: "Do you really want to clone this document?",
+								handler: clone,
+							};
+							toggleConfirmationModal();
+						},
 					},
 				]}
 			/>
@@ -63,10 +74,10 @@ export default function DocumentEditor() {
 			>
 				<ConfirmationDialog
 					onCancel={toggleConfirmationModal}
-					onConfirm={() => deactivate({ documentId: document.uid })}
-					isLoading={isDeactivating}
+					onConfirm={confirmationRef.current.handler}
+					isLoading={isDeactivating || isCloning}
 				>
-					<span>{confirmationMessageRef.current}</span>
+					<span>{confirmationRef.current.message}</span>
 				</ConfirmationDialog>
 			</Modal>
 		</div>

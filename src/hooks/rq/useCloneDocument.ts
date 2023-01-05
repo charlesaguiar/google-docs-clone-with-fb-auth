@@ -6,29 +6,35 @@ import { displayToast } from "utils/toast";
 
 interface IUseDocumentOutput {
 	createdDocument: IDocument | undefined;
-	create: UseMutateFunction<
+	clone: UseMutateFunction<
 		{ message: string; document: IDocument },
 		unknown,
-		{ name: string; ownerId: string },
+		void,
 		unknown
 	>;
-	isCreating: boolean;
+	isCloning: boolean;
 }
 
-const useCreateDocument = (): IUseDocumentOutput => {
+const useCloneDocument = (
+	document: IDocument | undefined
+): IUseDocumentOutput => {
 	const navigate = useNavigate();
 
 	const {
-		mutate: create,
-		isLoading: isCreating,
+		mutate: clone,
+		isLoading: isCloning,
 		data,
 	} = useMutation({
-		mutationFn: ({ name, ownerId }: { name: string; ownerId: string }) => {
-			return createDocument(name, ownerId);
+		mutationFn: () => {
+			return createDocument(
+				`${document?.name} - CLONE`,
+				document?.ownerId || "",
+				document?.data
+			);
 		},
-		onSuccess: async ({ document }) => {
-			displayToast("Document created successfully!", { type: "success" });
-			navigate(`/document-editor/${document.uid}`);
+		onSuccess: () => {
+			displayToast("Document cloned successfully!", { type: "success" });
+			navigate("/my-documents");
 		},
 		onError: () => {
 			displayToast("Error while creating document. Please, try again later.", {
@@ -38,10 +44,10 @@ const useCreateDocument = (): IUseDocumentOutput => {
 	});
 
 	return {
-		create,
+		clone,
 		createdDocument: data?.document,
-		isCreating,
+		isCloning,
 	};
 };
 
-export default useCreateDocument;
+export default useCloneDocument;

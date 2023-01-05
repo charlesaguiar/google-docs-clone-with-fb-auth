@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useAuthContext } from "contexts/AuthContext";
@@ -17,7 +17,7 @@ export default function CreateDocumentForm({
 }: ICreateDocumentFormProps) {
 	const navigate = useNavigate();
 	const { user } = useAuthContext();
-	const { create, createdDocument, isCreating } = useCreateDocument();
+	const { create, isCreating } = useCreateDocument();
 
 	const [errorMessage, setErrorMessage] = useState<string | undefined>();
 	const documentNameRef = useRef<HTMLInputElement>(null);
@@ -35,18 +35,6 @@ export default function CreateDocumentForm({
 		create({ name: documentNameRef.current?.value, ownerId: user.id });
 	};
 
-	useEffect(() => {
-		if (!createdDocument?.uid) return;
-		const timeout = setTimeout(() => {
-			onCancel();
-			navigate(`/document-editor/${createdDocument.uid}`);
-		}, 500);
-
-		return () => {
-			clearTimeout(timeout);
-		};
-	}, [onCancel, createdDocument?.uid]);
-
 	return (
 		<form className="flex flex-col" onSubmit={onSubmit}>
 			<Input
@@ -55,6 +43,7 @@ export default function CreateDocumentForm({
 				placeholder="Document name"
 				ref={documentNameRef}
 				error={errorMessage}
+				autoFocus
 			/>
 			<Divider />
 			<div className="flex gap-4 self-end">

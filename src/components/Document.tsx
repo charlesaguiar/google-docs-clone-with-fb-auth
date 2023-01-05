@@ -4,13 +4,19 @@ import { Link } from "react-router-dom";
 
 import { IDocument } from "services/DocumentService";
 
-export default function Document({ document }: { document: IDocument }) {
+interface IDocumentProps {
+	document: IDocument;
+}
+
+export default function Document({ document }: IDocumentProps) {
 	return (
 		<Link to={`/document-editor/${document.uid}`}>
-			<div className="flex flex-col lg:flex-row justify-between items-center shadow-lg p-4 rounded-lg border cursor-pointer border-gray-300 hover:bg-blue-50 hover:border-blue-500 hover:text-blue-500 duration-300 ease-in-out">
-				<SiGoogledrive size={32} />
-				<div className="flex flex-col gap-1">
-					<span>{document.name}</span>
+			<div className="flex flex-col lg:gap-2 h-full lg:flex-row justify-start items-center shadow-lg p-4 rounded-lg border cursor-pointer border-gray-300 hover:bg-blue-50 hover:border-blue-500 hover:text-blue-500 duration-300 ease-in-out">
+				<div>
+					<SiGoogledrive size={32} />
+				</div>
+				<div className="flex flex-col gap-1 min-w-0">
+					<h5 className="lg:truncate">{document.name}</h5>
 					<span className="text-sm text-gray-500">
 						Created at {format(new Date(document.createdAt), "EEEE, MMM/yyyy")}
 					</span>
