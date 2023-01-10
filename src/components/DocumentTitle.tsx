@@ -1,19 +1,22 @@
-import { useCallback } from "react";
-import useEditDocument from "hooks/rq/useEditDocument";
-import { IDocument } from "services/DocumentService";
+import { useCallback } from 'react'
+import useEditDocument from 'hooks/rq/useEditDocument'
+import { IDocument } from 'services/DocumentService'
 
-import InlineEditInput from "./InlineEditInput";
+import InlineEditInput from './InlineEditInput'
 
 interface IDocumentTitleProps {
-	document: IDocument;
+	document: IDocument
 }
 
 const DocumentTitle: React.FC<IDocumentTitleProps> = ({ document }) => {
-	const { edit, isEditing } = useEditDocument();
+	const { edit, isEditing } = useEditDocument()
 
-	const onDocumentNameEdit = useCallback((name: string) => {
-		edit({ uid: document.uid, name });
-	}, []);
+	const onDocumentNameEdit = useCallback(
+		(name: string) => {
+			edit({ uid: document.uid, name })
+		},
+		[document, edit],
+	)
 
 	return (
 		<InlineEditInput
@@ -21,7 +24,7 @@ const DocumentTitle: React.FC<IDocumentTitleProps> = ({ document }) => {
 			onEdit={onDocumentNameEdit}
 			isLoading={isEditing}
 		/>
-	);
-};
+	)
+}
 
-export default DocumentTitle;
+export default DocumentTitle

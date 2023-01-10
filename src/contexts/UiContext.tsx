@@ -1,37 +1,35 @@
-import { createContext, useContext, useLayoutEffect, useMemo } from "react";
-import { useLocation } from "react-router-dom";
-import useToggle from "hooks/useToggle";
+import { createContext, useContext, useLayoutEffect, useMemo } from 'react'
+import { useLocation } from 'react-router-dom'
+import useToggle from 'hooks/useToggle'
 
 interface IUiContextProviderProps {
-	children: React.ReactNode;
+	children: React.ReactNode
 }
 
 interface IUiContext {
-	showSidebar: boolean;
-	toggleSideBar: (params?: { force?: boolean }) => void;
+	showSidebar: boolean
+	toggleSideBar: (params?: { force?: boolean }) => void
 }
 
-const UiContext = createContext({} as IUiContext);
+// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+const UiContext = createContext({} as IUiContext)
 
-export const useUiContext = () => {
-	const context = useContext(UiContext);
-	return context;
-};
+export const useUiContext = (): IUiContext => {
+	const context = useContext(UiContext)
+	return context
+}
 
 const UiProvider: React.FC<IUiContextProviderProps> = ({ children }) => {
-	const location = useLocation();
-	const [showSidebar, toggleSideBar] = useToggle();
+	const location = useLocation()
+	const [showSidebar, toggleSideBar] = useToggle()
 
 	useLayoutEffect(() => {
-		toggleSideBar({ force: false });
-	}, [location]);
+		toggleSideBar({ force: false })
+	}, [location, toggleSideBar])
 
-	const value = useMemo(
-		() => ({ showSidebar, toggleSideBar }),
-		[showSidebar, toggleSideBar]
-	);
+	const value = useMemo(() => ({ showSidebar, toggleSideBar }), [showSidebar, toggleSideBar])
 
-	return <UiContext.Provider value={value}>{children}</UiContext.Provider>;
-};
+	return <UiContext.Provider value={value}>{children}</UiContext.Provider>
+}
 
-export default UiProvider;
+export default UiProvider

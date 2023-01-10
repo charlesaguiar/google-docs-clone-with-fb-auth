@@ -1,0 +1,42 @@
+{
+	"env": {
+		"browser": true,
+		"es2021": true,
+		"jest": true
+	},
+	"extends": [
+		"eslint:recommended",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:react/recommended",
+		"standard-with-typescript",
+		"plugin:react-hooks/recommended",
+		"prettier"
+	],
+	"overrides": [],
+	"parserOptions": {
+		"project": ["./tsconfig.json"],
+		"ecmaVersion": "latest",
+		"sourceType": "module",
+		"ecmaFeatures": {
+			"jsx": true
+		}
+	},
+	"plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
+	"settings": {
+		"import/resolver": {
+			"typescript": {}
+		}
+	},
+	"ignorePatterns": ["src/vite-env.d.ts"],
+	"rules": {
+		"react/prop-types": "off",
+		"react/react-in-jsx-scope": "off",
+		"@typescript-eslint/strict-boolean-expressions": "off",
+		"@typescript-eslint/no-empty-function": "off",
+		"@typescript-eslint/no-unused-vars": "warn",
+		"@typescript-eslint/no-misused-promises": [
+			"error",
+			{ "checksVoidReturn": { "attributes": false } }
+		]
+	}
+}

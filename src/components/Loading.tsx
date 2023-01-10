@@ -1,17 +1,17 @@
-import ClipLoader from "react-spinners/ClipLoader";
+import React from 'react'
+import ClipLoader from 'react-spinners/ClipLoader'
 
-export default function Loading({
-	size = 50,
-	inline = true,
-}: {
-	size?: number;
-	inline?: boolean;
-}) {
+interface ILoadingProps {
+	size?: number
+	inline?: boolean
+}
+
+const Loading: React.FC<ILoadingProps> = ({ size = 50, inline = true }) => {
 	return (
-		<div
-			className={`flex items-center justify-center ${inline ? "h-screen" : ""}`}
-		>
+		<div className={`flex items-center justify-center ${inline ? 'h-screen' : ''}`}>
 			<ClipLoader size={size} />
 		</div>
-	);
+	)
 }
+
+export default Loading

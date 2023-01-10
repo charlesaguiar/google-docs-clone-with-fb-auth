@@ -1,31 +1,31 @@
-import Button from "./Button";
-import Divider from "./Divider";
+import Button from './Button'
+import Divider from './Divider'
 
 interface IPageHeaderAction {
-	variant: "primary" | "secondary";
-	label: string;
-	Icon?: React.ReactNode;
-	handler: () => void;
+	variant: 'primary' | 'secondary'
+	label: string
+	Icon?: React.ReactNode
+	handler: () => void
 }
 
 interface IPageHeaderProps {
-	title: React.ReactNode;
-	actions?: IPageHeaderAction[];
+	title: React.ReactNode
+	actions?: IPageHeaderAction[]
 }
 
-export default function PageHeader({ title, actions }: IPageHeaderProps) {
+const PageHeader: React.FC<IPageHeaderProps> = ({ title, actions }) => {
 	return (
 		<>
-			<div className="flex justify-between items-center">
-				<h1 className="text-2xl font-bold">{title}</h1>
-				<div className="flex gap-2">
+			<div className='flex justify-between items-center'>
+				<h1 className='text-2xl font-bold'>{title}</h1>
+				<div className='flex gap-2'>
 					{actions?.length
 						? actions.map((action, i) => (
 								<Button
 									key={`${action.label}-${i}`}
 									variant={action.variant}
 									onClick={action.handler}
-									className="flex gap-2 items-center"
+									className='flex gap-2 items-center'
 								>
 									{action.Icon ? action.Icon : null}
 									{action.label}
@@ -36,5 +36,7 @@ export default function PageHeader({ title, actions }: IPageHeaderProps) {
 			</div>
 			<Divider />
 		</>
-	);
+	)
 }
+
+export default PageHeader

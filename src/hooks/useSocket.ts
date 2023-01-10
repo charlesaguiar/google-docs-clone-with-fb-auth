@@ -1,27 +1,22 @@
-import { useEffect, useState } from "react";
-import { io, Socket } from "socket.io-client";
+import { useEffect, useState } from 'react'
+import { io, Socket } from 'socket.io-client'
 
-export interface EventsMap {
-	[event: string]: any;
-}
+export type EventsMap = Record<string, any>
 
-const useSocket = <
-	IListenEvents extends EventsMap,
-	IEmitEvents extends EventsMap
->() => {
-	const [socket, setSocket] = useState<
-		Socket<IListenEvents, IEmitEvents> | undefined
-	>();
+const useSocket = <IListenEvents extends EventsMap, IEmitEvents extends EventsMap>():
+	| Socket<IListenEvents, IEmitEvents>
+	| undefined => {
+	const [socket, setSocket] = useState<Socket<IListenEvents, IEmitEvents> | undefined>()
 
 	useEffect(() => {
-		const s = io(import.meta.env.VITE_SOCKET_URL);
-		setSocket(s);
+		const s = io(import.meta.env.VITE_SOCKET_URL)
+		setSocket(s)
 		return () => {
-			s.disconnect();
-		};
-	}, []);
+			s.disconnect()
+		}
+	}, [])
 
-	return socket;
-};
+	return socket
+}
 
-export default useSocket;
+export default useSocket

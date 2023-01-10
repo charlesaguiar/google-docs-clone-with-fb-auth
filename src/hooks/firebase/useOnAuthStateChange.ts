@@ -1,18 +1,17 @@
-import { useCallback, useEffect } from "react";
-import { auth, FirebaseUser } from "lib/firebase";
+import { useEffect } from 'react'
+import { auth, FirebaseUser } from 'lib/firebase'
 
 const useOnAuthStateChange = (
-	callback: (user?: FirebaseUser | null) => void
-) => {
-	const memoizedCallback = useCallback(callback, []);
-
+	callback: (user?: FirebaseUser | null) => void | Promise<void>,
+): void => {
 	useEffect(() => {
-		const unsubscribe = auth.onAuthStateChanged((user) => {
-			memoizedCallback(user);
-		});
+		const unsubscribe = auth.onAuthStateChanged(async (user) => {
+			await callback(user)
+		})
 
-		return unsubscribe;
-	}, [memoizedCallback]);
-};
+		return unsubscribe
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
+}
 
-export default useOnAuthStateChange;
+export default useOnAuthStateChange

@@ -1,47 +1,50 @@
-import { useMutation, UseMutateFunction } from "react-query";
-import { useNavigate } from "react-router-dom";
+import { useMutation, UseMutateFunction } from 'react-query'
+import { useNavigate } from 'react-router-dom'
+import { ApiError } from 'schemas/axios'
 
-import { createDocument, IDocument } from "services/DocumentService";
-import { displayToast } from "utils/toast";
+import { createDocument, IDocument } from 'services/DocumentService'
+import { displayToast } from 'utils/toast'
 
 interface IUseDocumentOutput {
-	createdDocument: IDocument | undefined;
+	createdDocument: IDocument | undefined
 	create: UseMutateFunction<
 		{ message: string; document: IDocument },
 		unknown,
 		{ name: string; ownerId: string },
 		unknown
-	>;
-	isCreating: boolean;
+	>
+	isCreating: boolean
 }
 
 const useCreateDocument = (): IUseDocumentOutput => {
-	const navigate = useNavigate();
+	const navigate = useNavigate()
 
 	const {
 		mutate: create,
 		isLoading: isCreating,
 		data,
 	} = useMutation({
-		mutationFn: ({ name, ownerId }: { name: string; ownerId: string }) => {
-			return createDocument(name, ownerId);
+		mutationFn: async ({ name, ownerId }: { name: string; ownerId: string }) => {
+			return await createDocument(name, ownerId)
 		},
 		onSuccess: async ({ document }) => {
-			displayToast("Document created successfully!", { type: "success" });
-			navigate(`/document-editor/${document.uid}`);
+			displayToast('Document created successfully!', { type: 'success' })
+			navigate(`/document-editor/${document.uid}`)
 		},
-		onError: () => {
-			displayToast("Error while creating document. Please, try again later.", {
-				type: "error",
-			});
+		onError: (err) => {
+			const error = err as ApiError
+			const message =
+				error.response?.data?.message ?? 'Error while creating document. Please, try again later.'
+
+			displayToast(message, { type: 'error' })
 		},
-	});
+	})
 
 	return {
 		create,
 		createdDocument: data?.document,
 		isCreating,
-	};
-};
+	}
+}
 
-export default useCreateDocument;
+export default useCreateDocument

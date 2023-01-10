@@ -1,10 +1,10 @@
-import Button from "./Button";
+import Button from './Button'
 
 interface IConfirmationDialogProps {
-	children: React.ReactNode;
-	isLoading?: boolean;
-	onConfirm: () => void;
-	onCancel: () => void;
+	children: React.ReactNode
+	isLoading?: boolean
+	onConfirm: () => void
+	onCancel: () => void
 }
 
 const ConfirmationDialog: React.FC<IConfirmationDialogProps> = ({
@@ -16,16 +16,16 @@ const ConfirmationDialog: React.FC<IConfirmationDialogProps> = ({
 	return (
 		<div>
 			{children}
-			<div className="flex justify-end gap-4 mt-4">
-				<Button variant="secondary" onClick={onCancel}>
+			<div className='flex justify-end gap-4 mt-4'>
+				<Button type='button' variant='secondary' onClick={onCancel} disabled={isLoading}>
 					Cancel
 				</Button>
-				<Button isLoading={isLoading} onClick={onConfirm}>
+				<Button type='submit' isLoading={isLoading} onClick={onConfirm}>
 					Confirm
 				</Button>
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default ConfirmationDialog;
+export default ConfirmationDialog

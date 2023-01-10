@@ -1,22 +1,19 @@
-import { toast, ToastContent, ToastOptions } from "react-toastify";
+import { toast, ToastContent, ToastOptions } from 'react-toastify'
 
 const DEFAULT_TOAST_PROPS: ToastOptions = {
-	position: "top-right",
+	position: 'top-right',
 	autoClose: 5000,
 	hideProgressBar: false,
 	closeOnClick: true,
 	pauseOnHover: true,
 	draggable: true,
 	progress: undefined,
-	theme: "light",
-};
+	theme: 'light',
+}
 
-export const displayToast = (
-	content: ToastContent,
-	options: Partial<ToastOptions>
-) => {
-	return toast(content, {
+export const displayToast = (content: ToastContent, options: Partial<ToastOptions>): void => {
+	toast(content, {
 		...DEFAULT_TOAST_PROPS,
 		...options,
-	});
-};
+	})
+}

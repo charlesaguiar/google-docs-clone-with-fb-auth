@@ -1,5 +1,5 @@
-import React from "react";
-
-export default function SharedWithMe() {
-	return <div>SharedWithMe</div>;
+const SharedWithMe: React.FC = () => {
+	return <span>Shared with Me!</span>
 }
+
+export default SharedWithMe
